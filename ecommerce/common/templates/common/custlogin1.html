@@ -3,17 +3,19 @@
 {% block content %}
 <center><h1>Login Here</h1></center>
 <div class="col-md-6" style="margin: auto;" >
-<form>
+  {{ msg }}
+<form method= "POST" enctype="multipart/form-data">
+  {% csrf_token %}
     <!-- Email input -->
     <div class="form-outline mb-4">
         <label class="form-label" for="form2Example1">Email address</label>
-      <input type="email" id="form2Example1" class="form-control" />
+      <input type="email" id="form2Example1" class="form-control"  name="c_email1" />
     </div>
   
     <!-- Password input -->
     <div class="form-outline mb-4">
         <label class="form-label" for="form2Example2">Password</label>
-      <input type="password" id="form2Example2" class="form-control" />
+      <input type="password" id="form2Example2" class="form-control"  name="c_pass1" />
     </div>
   
     <!-- 2 column grid layout for inline styling -->
@@ -33,10 +35,10 @@
     </div>
   
     <!-- Submit button -->
-    <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
   
     <!-- Register buttons -->
     <div class="text-center">
-      <p>Not a member? <a href="{% url 'custreg1' %}">Register</a></p>
+      <p>Not a member? <a href="{% url 'common:custreg1' %}">Register</a></p>
   </form></div>
 {% endblock %}

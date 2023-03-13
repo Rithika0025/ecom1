@@ -1,0 +1,40 @@
+{% extends 'customer_temp/master2.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+                {% for product in productlist %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ product.product_pic.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="clearfix mb-3">
+                            </div>
+                            <h4 class="card-title text-center">{{product.product_name}}</h4>
+                            <div class=" my-4">
+                                <p class="card-text"></p>
+                                <h5 class="float-end price-hp"></h5>
+                                <a href="#" class="btn btn-warning">Add to Cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

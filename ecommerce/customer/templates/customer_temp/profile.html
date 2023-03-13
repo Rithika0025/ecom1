@@ -1,0 +1,10 @@
+{% extends 'customer_temp/master2.html' %}
+{% load static %}
+{% block content %}
+<h1>profile</h1>
+
+<h3>name:{{user_details.customer_name}}</h3>
+<h3>email:{{user_details.customer_email}}</h3>
+<h3>phone:{{user_details.customer_phoneno}}</h3>
+{% comment %} render il kodutha varaiable . models il koduthe {% endcomment %}
+{% endblock %}
