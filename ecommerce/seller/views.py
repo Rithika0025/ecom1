@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 
 from seller.models import Product
@@ -56,4 +58,20 @@ def logout(request):
     del request.session['seller']
     # return render (request,'common/custlogin1.html')
     return redirect('common:sellogin1')
+
+def del_product(request,p_id):
+    delete_product = Product.objects.get(id = p_id)
+    delete_product.delete()
+    return redirect('seller:viewpro')
+
+def seller_updatestock(request):
+    return render(request,'seller/update_stock.html')
+
+def get_product(request):
+    category = request.POST['category_key']
+    product = Product.objects.filter(seller_id= request.session ['seller'],category = category )
+                                                                            #models=ivde ulla category
+    data = [{'product_name':pro.product_name,'id':pro.id}
+            for pro in product]
+    return JsonResponse({'data':data})
 

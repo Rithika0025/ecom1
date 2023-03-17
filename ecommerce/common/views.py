@@ -1,4 +1,5 @@
 import random
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 
 from common.models import Customer,Seller
@@ -103,3 +104,8 @@ def common_selreg(request):
         )
         newseller.save()
     return render(request,'common/selreg1.html')
+
+def email_exists(request):
+    email = request.POST['email_key']
+    e_exist = Customer.objects.filter(customer_email = email).exists()
+    return JsonResponse ({'status':e_exist})

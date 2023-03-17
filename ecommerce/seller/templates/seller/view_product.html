@@ -22,7 +22,8 @@
               <div class=" my-4">
                 <p class="card-text">{{products.description}}</p>
                 <h5 class="float-end price-hp">{{products.price}}</h5>
-                <a href="#" class="btn btn-warning">Buy Now</a>
+                <a href="#" class="btn btn-warning">Edit</a>
+                <a href="{% url 'seller:deletepro' products.id %}" class="btn btn-warning">Delete</a>
               </div>
             </div>
 

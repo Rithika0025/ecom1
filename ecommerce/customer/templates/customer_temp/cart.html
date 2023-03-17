@@ -1,0 +1,31 @@
+{% extends 'customer_temp/master2.html' %}
+{% load static %}
+{% block content %}
+<!-- On tables -->
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Product Image</th>
+        <th scope="col">Product name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Sub Total</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for pro in cart_product %}
+      <tr>
+        <th><img src="{{pro.products.product_pic.url}}" alt="" height="100px" width="100px"></th>
+        <th scope="row">{{pro.products.product_name}}</th>
+        <td>{{pro.products.price}}</td>
+        <td>{{pro.quantity}}</td>
+        <td>#</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+   
+
+  </table>
+  <h1>Total:</h1>
+
+{% endblock %}

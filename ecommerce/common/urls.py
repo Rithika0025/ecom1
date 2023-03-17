@@ -8,4 +8,5 @@ urlpatterns = [
     path('sellogin1',views.common_sellogin,name='sellogin1'),
     path('custreg1',views.common_custreg,name='custreg1'),
     path('selreg1',views.common_selreg,name='selreg1'),
+    path('emailexist',views.email_exists,name='email_exists'),
 ]

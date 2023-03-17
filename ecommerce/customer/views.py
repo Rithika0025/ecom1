@@ -2,10 +2,13 @@ from django.shortcuts import render,redirect
 
 from common.models import Customer
 from seller.models import Product
+from customer.models import Cart
+from .decorator import auth_customer
 # Create your views here.
 def customer_master(request):
     return render(request,'customer_temp/master2.html')
 
+@auth_customer
 def customer_home(request):
     return render(request,'customer_temp/home2.html')
 
@@ -16,15 +19,16 @@ def customer_product_details(request):
 def customer_myorder(request):
     return render(request,'customer_temp/myorder.html')
 
+@auth_customer
 def customer_profile(request):
+    
     #if session_id in requst.session
         #variable=Class.objects.get (oru variable lek aa session il ulla aalde details)
-    if 'customer' in request.session : 
-        currentuser = Customer.objects.get(id = request.session['customer'])
-        return render(request,'customer_temp/profile.html',{'user_details' : currentuser})
+     
+    currentuser = Customer.objects.get(id = request.session['customer'])
+    return render(request,'customer_temp/profile.html',{'user_details' : currentuser})
                         #dictionary aayit kodukum oru new variable lek :aa login cheytha aalde details html  il veran,ee variable aan html il page il call aakne
-    else :
-        return redirect ('common:custlogin1')
+   
     
 
 def change_password(request):
@@ -59,3 +63,30 @@ def logout(request):
     del request.session['customer']
     # return render (request,'common/custlogin1.html')
     return redirect('common:custlogin1')
+
+def view_products(request,product_id):
+    viewpro = Product.objects.get(id=product_id)
+    
+    return render(request,'customer_temp/view_pro.html',{'view_product':viewpro})
+
+def add_to_cart(request,product_id) :
+    cart_object = Cart.objects.filter(customer_id = request.session ['customer'],products_id = product_id).exists()
+    if not cart_object: 
+        cart = Cart.objects.create(
+            customer_id = request.session['customer'],
+            products_id = product_id,    
+            )
+    else:
+        cart = Cart.objects.get(customer_id = request.session ['customer'],products_id = product_id)    
+        cart.quantity = cart.quantity + 1
+        cart.save()
+      
+        
+    return redirect ('customer:productdetail')
+
+def customer_cart(request):
+    cart = Cart.objects.filter(customer_id = request.session ['customer'])
+    return render(request,'customer_temp/cart.html',{'cart_product': cart})
+
+
+    

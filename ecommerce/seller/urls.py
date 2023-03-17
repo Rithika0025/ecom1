@@ -10,4 +10,8 @@ urlpatterns = [
     path('viewpayment',views.seller_viewpayment,name='viewpayment'),
     path('vieworder',views.seller_vieworder,name='vieworder'),
     path('logout',views.logout,name='logout'),
+    path('deletepro/<int:p_id>',views.del_product,name='deletepro'),
+    path('updatestock',views.seller_updatestock,name='updatestock'),
+    path('get_product',views.get_product,name='get_product'),
+    
 ]

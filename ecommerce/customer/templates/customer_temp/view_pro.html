@@ -1,0 +1,10 @@
+{% extends 'customer_temp/master2.html' %}
+{% load static %}
+{% block content %}
+<img src="{{ view_product.product_pic.url }}" alt="" width="100%" height="250px"><br>
+<h1>{{view_product.product_name}}</h1>
+<h3>{{view_product.description}}</h3>
+<h4>{{view_product.price}}</h4>
+<a href="#" class="btn btn-warning">Add to Cart</a>
+<a href="#" class="btn btn-warning">Buy Now</a>
+{% endblock %}
