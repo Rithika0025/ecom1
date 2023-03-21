@@ -40,7 +40,7 @@
                        <input type="text">
                     </div>
 
-                    <button type="submit">add</button>
+                    <button type="submit" class="btn btn-danger">Update</button>
     </div>
     
         
@@ -75,6 +75,22 @@
         })
       })
     })
+  </script>
+  <script>
+    $(document).ready(function(){
+      $.ajaxSetup({
+        headers: {
+          "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+        }
+      })
+      $('#stock').change(function(){
+        var stock = $('#stock').val()
+        console.log(category)
+         
+          })
+        })
+  
+  
   </script>
   
 {% endblock %}

@@ -27,5 +27,56 @@
 
   </table>
   <h1>Total:</h1>
+  <input type="text" name="" id=""><br><br>
+  <button class="btn btn-warning">Place Order</button>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+  <script>
+  (document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+        }
+    })
 
+    $('#qty').change(function () {
+
+        $.ajax({
+
+            type: 'POST',
+            url: "{% url 'customer:change_quantity' %}",
+            data: {
+                'product_id': $(this).attr('data-item'),
+                'quantity': $(this).val()
+            },
+
+
+            success: function (response) {
+                let error = response.error_msg
+                // let success = response.success_msg
+                if (error == "In stock") {
+                    $('#stock_error').html(error)
+                    $('#stock_error').css('color', 'green')
+
+                } else {
+                    $('#stock_error').html(error)
+                    $('#stock_error').css('color', 'red')
+                }
+                $('#stock_error').html(error)
+                // $('#stock_success').html(success)
+
+
+            }
+        })
+    })
+})
+
+</script>
 {% endblock %}
+
+
+
+<!-- onchange="getTotal('{{item.product.p_price}}')"
+                    max="{{item.product.p_stock}}" -->
+
+
+

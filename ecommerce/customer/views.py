@@ -88,5 +88,16 @@ def customer_cart(request):
     cart = Cart.objects.filter(customer_id = request.session ['customer'])
     return render(request,'customer_temp/cart.html',{'cart_product': cart})
 
+def change_quantity(request):
+    error_msg = ''
+    # success_msg = ''
+    quantity = int(request.POST['quantity'])
+    product_id = int(request.POST['product_id'])
+    current_stock = Product.objects.get(id = product_id).current_stock
+    if quantity > current_stock :
+        error_msg = 'Out of stock'
+    else:
+        error_msg = 'In stock'
+    return JsonResponse({'error_msg': error_msg})
 
     

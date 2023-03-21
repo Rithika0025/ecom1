@@ -1,6 +1,7 @@
-import json
+
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
+from seller.decorator import auth_seller
 
 from seller.models import Product
 
@@ -8,6 +9,7 @@ from seller.models import Product
 def seller_master(request):
     return render(request,'seller/master3.html')
 
+@auth_seller
 def seller_addpro(request):
     if request.method == 'POST':
         category = request.POST ['p_category']
@@ -36,21 +38,26 @@ def seller_addpro(request):
         newproduct.save()
     return render(request,'seller/add_product.html')
 
+@auth_seller
 def seller_home(request):
     return render(request,'seller/home3.html')
 
+@auth_seller
 def seller_profile(request):
     return render(request,'seller/profile.html')
 
+@auth_seller
 def seller_vieworder(request):
     return render(request,'seller/view_order.html')
 
+@auth_seller
 def seller_viewpro(request):
     seller_product = Product.objects.filter(
         seller_id = request.session['seller']  
     )
     return render(request,'seller/view_product.html',{'products' : seller_product })
 
+@auth_seller
 def seller_viewpayment(request):
     return render(request,'seller/view_payment.html')
 
@@ -59,14 +66,17 @@ def logout(request):
     # return render (request,'common/custlogin1.html')
     return redirect('common:sellogin1')
 
+@auth_seller
 def del_product(request,p_id):
     delete_product = Product.objects.get(id = p_id)
     delete_product.delete()
     return redirect('seller:viewpro')
 
+@auth_seller
 def seller_updatestock(request):
     return render(request,'seller/update_stock.html')
 
+@auth_seller
 def get_product(request):
     category = request.POST['category_key']
     product = Product.objects.filter(seller_id= request.session ['seller'],category = category )
@@ -74,4 +84,3 @@ def get_product(request):
     data = [{'product_name':pro.product_name,'id':pro.id}
             for pro in product]
     return JsonResponse({'data':data})
-
